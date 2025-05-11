@@ -1,0 +1,23 @@
+{
+    "name": "giatechindo/hypervel-permission",
+    "description": "A role and permission management package for Hypervel by Giatechindo Community",
+    "type": "library",
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^9.0|^10.0",
+        "illuminate/database": "^9.0|^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Giatechindo\\HypervelPermission\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Giatechindo\\HypervelPermission\\HypervelPermissionServiceProvider"
+            ]
+        }
+    },
+    "license": "MIT"
+}
