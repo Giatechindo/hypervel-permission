@@ -13,22 +13,23 @@ class HypervelPermissionServiceProvider extends ServiceProvider
         // Publikasi konfigurasi
         $this->publishes([
             __DIR__.'/../config/hypervel-permission.php' => config_path('hypervel-permission.php'),
-        ], 'config');
+        ], 'hypervel-permission-config');
 
         // Publikasi migrasi
         $this->publishes([
             __DIR__.'/../database/migrations' => database_path('migrations'),
-        ], 'migrations');
+        ], 'hypervel-permission-migrations');
 
         // Daftarkan middleware
-        $router = $this->app['router'];
-        $router->aliasMiddleware('role', RoleMiddleware::class);
-        $router->aliasMiddleware('permission', PermissionMiddleware::class);
+        $this->app->get('router')->aliasMiddleware('role', RoleMiddleware::class);
+        $this->app->get('router')->aliasMiddleware('permission', PermissionMiddleware::class);
     }
 
     public function register()
     {
         // Merge konfigurasi
-        $this->mergeConfigFrom(__DIR__.'/../config/hypervel-permission.php', 'hypervel-permission');
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/hypervel-permission.php', 'hypervel-permission'
+        );
     }
 }
