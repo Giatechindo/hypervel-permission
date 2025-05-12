@@ -1,1 +1,8 @@
-vendor/ node_modules/ *.env .DS_Store *.log
+vendor
+node_modules
+*.env .DS_Store *.log
+vendor
+node_modules
+composer.lock
+.phpunit.result.cache
+.env

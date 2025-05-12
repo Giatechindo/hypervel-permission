@@ -1,4 +1,7 @@
 <?php
+// config/permission.php
+
+declare(strict_types=1);
 
 return [
     'models' => [
@@ -12,5 +15,8 @@ return [
         'model_has_roles' => 'model_has_roles',
         'role_has_permissions' => 'role_has_permissions',
     ],
-    'identifier_type' => 'id', // 'id' untuk integer, 'uuid' untuk UUID
+    'column_names' => [
+        'model_morph_key' => 'model_id',
+    ],
+    'use_uuid' => env('PERMISSION_USE_UUID', false),
 ];
