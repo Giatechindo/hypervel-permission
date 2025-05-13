@@ -4,46 +4,25 @@ declare(strict_types=1);
 
 namespace Giatechindo\HypervelPermission;
 
-use Hyperf\Contract\ContainerInterface;
+use Hypervel\Support\ServiceProvider;
+use Giatechindo\HypervelPermission\PermissionRegistrar;
 
-class PermissionServiceProvider
+class PermissionServiceProvider extends ServiceProvider
 {
-    protected ContainerInterface $container;
-
-    public function __invoke(ContainerInterface $container): void
+    public function register(): void
     {
-        $this->container = $container;
+        // Gunakan $this->app karena ServiceProvider Hypervel sudah punya container di sana
+        $this->app->set(PermissionRegistrar::class, new PermissionRegistrar());
+    }
 
-        // Publish configuration
+    public function boot(): void
+    {
         $this->publishes([
-            __DIR__ . '/../config/permission.php' => BASE_PATH . '/config/autoload/permission.php',
-        ]);
+            __DIR__ . '/../config/permission.php' => config_path('permission.php'),
+        ], 'config');
 
-        // Publish migrations
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        // Register PermissionRegistrar
-        $container->set(PermissionRegistrar::class, new PermissionRegistrar());
-    }
-
-    protected function publishes(array $publishes): void
-    {
-        // In a test environment, simulate publishing by merging configs
-        foreach ($publishes as $source => $dest) {
-            if (file_exists($source)) {
-                $config = require $source;
-                $this->config()->set(basename($dest, '.php'), $config);
-            }
-        }
-    }
-
-    protected function loadMigrationsFrom(string $path): void
-    {
-        // In tests, migrations are loaded manually by TestCase
-    }
-
-    protected function config()
-    {
-        return $this->container->get(\Hyperf\Contract\ConfigInterface::class);
+        $this->mergeConfigFrom(__DIR__ . '/../config/permission.php', 'permission');
     }
 }
