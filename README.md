@@ -59,6 +59,10 @@ hypervel-permission/
 composer require giatechindo/hypervel-permission
 ```
 
+```bash
+composer require giatechindo/hypervel-permission:1.0.0
+```
+
 2. Copy the configuration file to your project:
 
 ```bash

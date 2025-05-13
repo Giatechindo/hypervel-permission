@@ -1,6 +1,7 @@
 {
     "name": "giatechindo/hypervel-permission",
     "description": "Permission handling for Hypervel framework with ID and UUID support",
+    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "require": {
